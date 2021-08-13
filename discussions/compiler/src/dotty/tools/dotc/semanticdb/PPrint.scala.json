@@ -1,0 +1,123 @@
+[
+  {
+    "id" : "27180634-af81-4a52-9738-252bfdadc2bb",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-692090461",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "19257212-c17c-4dbf-af4f-ec5d2b3cfc84",
+        "parentId" : null,
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "- `noteSymtab` is for symbols that are hard-linked in structural types\r\n- `symtab` is SymbolTable for a TextDocument\r\n\r\nWe need symbol table, because when we convert `TypeRef` into Semanticdb Type, we have to lookup the actual symbol from sym-linked symbol.",
+        "createdAt" : "2021-06-24T18:21:38Z",
+        "updatedAt" : "2021-06-24T18:38:34Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 26,
+    "diffHunk" : "@@ -1,1 +24,28 @@\n    def visit(sym: String): SymbolInformation =\n      val symtabInfo = noteSymtab.get(sym).orElse(symtab.info(sym))\n      symtabInfo.getOrElse {\n        val displayName = if sym.isGlobal then sym.desc.value else sym"
+  },
+  {
+    "id" : "425b26ac-dae6-4576-8200-3b24c4427528",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-698921811",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "b16903c9-06b0-4d37-bdee-65e08f55a42a",
+        "parentId" : null,
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "We discussed with @tanishiking that the alternative to having a duplicate semanticdb printer would be to run `metap` manually. We could use coursier boostrap and add a minimal jar, which can be run and printed to file. What do you think @bishabosha ?",
+        "createdAt" : "2021-06-25T13:36:14Z",
+        "updatedAt" : "2021-06-25T13:44:30Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "716c9282-c74e-4a8f-8748-44e65fe7af1c",
+        "parentId" : "b16903c9-06b0-4d37-bdee-65e08f55a42a",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "I think another alternative to try is you can load metap with reflection maybe, but if this works then fine",
+        "createdAt" : "2021-07-05T08:20:24Z",
+        "updatedAt" : "2021-07-05T08:20:24Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "f412bfac-33c4-4b9f-b14a-b8c3d5f37de0",
+        "parentId" : "b16903c9-06b0-4d37-bdee-65e08f55a42a",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "I have found however that `Tools.metac` prints more information, for example in the occurrences we print the substring from the source file that matches the range, which metap does not do, this is useful to check that the range is actually correct",
+        "createdAt" : "2021-07-05T08:24:53Z",
+        "updatedAt" : "2021-07-05T08:26:01Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 9,
+    "diffHunk" : "@@ -1,1 +7,11 @@import SymbolInformation.Kind._\n\nclass SymbolInfomationPrinter (symtab: PrinterSymtab):\n  val notes = InfoNotes()\n  val infoPrinter = InfoPrinter(notes)"
+  },
+  {
+    "id" : "fe57ef13-6be0-40a5-8e88-19f022358674",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-710824045",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "d5ca255b-e3ac-4f8f-9947-ab58ca94865d",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "we should try to reuse the current `StringBuilder` by passing it in as an argument, then either return the `StringBuilder` or `Unit`",
+        "createdAt" : "2021-07-02T14:46:00Z",
+        "updatedAt" : "2021-07-02T15:18:34Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "80beda0d-1d15-40a0-ab7d-e1285d831a4a",
+        "parentId" : "d5ca255b-e3ac-4f8f-9947-ab58ca94865d",
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "@tanishiking what about this comment? We could reuse the sam StringBuilder everywhere.",
+        "createdAt" : "2021-07-20T16:37:00Z",
+        "updatedAt" : "2021-07-20T17:44:13Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 13,
+    "diffHunk" : "@@ -1,1 +11,15 @@  val infoPrinter = InfoPrinter(notes)\n\n  def pprintSymbolInformation(info: SymbolInformation): String =\n    val sb = new StringBuilder()\n    sb.append(info.symbol).append(\" => \")"
+  },
+  {
+    "id" : "39c9b3e2-f605-4a03-a22b-102dc2f777e0",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-698226757",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "37147209-6eb1-44a4-9eb3-ff3de57bad93",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "again would be good to try and reuse `StringBuilder` where possible",
+        "createdAt" : "2021-07-02T14:48:20Z",
+        "updatedAt" : "2021-07-02T15:18:34Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 35,
+    "diffHunk" : "@@ -1,1 +33,37 @@    private enum SymbolStyle:\n      case Reference, Definition\n    def pprint(info: SymbolInformation): String =\n      val sb = new StringBuilder()\n      sb.append(accessString(info.access))"
+  }
+]

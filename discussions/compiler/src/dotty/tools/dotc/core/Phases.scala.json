@@ -64,5 +64,49 @@
     "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
     "line" : 80,
     "diffHunk" : "@@ -1,1 +408,412 @@      Iterator.iterate(this)(_.next) takeWhile (_.hasNext)\n\n    final def monitor(doing: String)(body: => Unit)(using Context): Unit =\n      try body\n      catch"
+  },
+  {
+    "id" : "1e112232-ea22-4f42-b6a2-505cc8d1b0d4",
+    "prId" : 13173,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/13173#pullrequestreview-719514151",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "4cbbf16f-1e3e-43fd-8dcb-bd411fed95f3",
+        "parentId" : null,
+        "authorId" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "body" : "Check for isCheckable. ",
+        "createdAt" : "2021-07-30T23:21:38Z",
+        "updatedAt" : "2021-07-30T23:21:38Z",
+        "lastEditedBy" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
+    "line" : 27,
+    "diffHunk" : "@@ -1,1 +108,112 @@            }\n          fusedPhases += phaseToAdd\n          val shouldAddYCheck = filteredPhases(i).exists(_.isCheckable) && YCheckAfter.containsPhase(phaseToAdd)\n          if (shouldAddYCheck) {\n            val checker = new TreeChecker"
+  },
+  {
+    "id" : "3881b982-16e3-4a9c-804f-5acc755e4519",
+    "prId" : 13173,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/13173#pullrequestreview-719514213",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "1a672183-8aff-4569-b142-e064fae5a36d",
+        "parentId" : null,
+        "authorId" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "body" : "Moved up from FrontEnd",
+        "createdAt" : "2021-07-30T23:21:49Z",
+        "updatedAt" : "2021-07-30T23:21:50Z",
+        "lastEditedBy" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
+    "line" : 80,
+    "diffHunk" : "@@ -1,1 +408,412 @@      Iterator.iterate(this)(_.next) takeWhile (_.hasNext)\n\n    final def monitor(doing: String)(body: => Unit)(using Context): Unit =\n      try body\n      catch"
   }
 ]

@@ -42,5 +42,170 @@
     "commit" : "e7a641c5ad61fa683423954fa9263079a890c809",
     "line" : 23,
     "diffHunk" : "@@ -1,1 +936,940 @@_empty_/Enums.Suits.Hearts. => case val static enum method Hearts\n_empty_/Enums.Suits.Spades. => case val static enum method Spades\n_empty_/Enums.Suits.derived$CanEqual. => lazy val given method derived$CanEqual\n_empty_/Enums.Suits.fromOrdinal(). => method fromOrdinal\n_empty_/Enums.Suits.fromOrdinal().(ordinal) => param ordinal"
+  },
+  {
+    "id" : "d6116527-9117-4dbf-95fc-c75ee6f90769",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-701273758",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "04660133-ea09-43f0-b54d-280431c6fe60",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "perhaps `prefixBeforeTpe` in `PPrint.scala` could have an adjustment for when it is a Method that has `ValueSignature(tpe)` where `tpe` is not `ByNameType` ",
+        "createdAt" : "2021-07-07T17:30:16Z",
+        "updatedAt" : "2021-07-07T17:30:16Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 4856,
+    "diffHunk" : "@@ -1,1 +4093,4097 @@types/Test.C#ClassInfoType3#[T] => typeparam T \ntypes/Test.C#ClassInfoType3#`<init>`(). => primary ctor <init> [typeparam T ](): ClassInfoType3[T]\ntypes/Test.C#Either. => val method Either Either.type\ntypes/Test.C#MethodType. => final object MethodType extends Object { self: MethodType.type => +7 decls }\ntypes/Test.C#MethodType.m3(). => method m3 => Int"
+  },
+  {
+    "id" : "1db36f22-52d7-4b68-b27a-522b024d548a",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-706972684",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "396ad1b6-01ec-4a57-a808-a9ae90cda8c1",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "we still don't want evidence parameters (desugared from context bounds) showing as a definition in the occurrences section I believe, as they are not visible in the source code, what do you think @tgodzik?",
+        "createdAt" : "2021-07-09T08:30:56Z",
+        "updatedAt" : "2021-07-09T08:31:04Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "817bdf71-6027-495a-a144-eda691e05d7b",
+        "parentId" : "396ad1b6-01ec-4a57-a808-a9ae90cda8c1",
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "Yeah, that should ideally be on the synthetics section",
+        "createdAt" : "2021-07-09T10:57:31Z",
+        "updatedAt" : "2021-07-09T10:57:32Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "90786a9a-e4e7-4208-a78c-56df658d4628",
+        "parentId" : "396ad1b6-01ec-4a57-a808-a9ae90cda8c1",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "Ah right, I will exclude them from `occurrence` while keeping them in SymbolInformation section :+1:",
+        "createdAt" : "2021-07-12T07:34:03Z",
+        "updatedAt" : "2021-07-12T07:34:03Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "5b007e53-0844-4e82-a87c-940362e2a792",
+        "parentId" : "396ad1b6-01ec-4a57-a808-a9ae90cda8c1",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "done https://github.com/lampepfl/dotty/pull/12885/commits/8801a69d1f382f688fdfca1ba02ca12874191db9",
+        "createdAt" : "2021-07-15T06:31:00Z",
+        "updatedAt" : "2021-07-15T06:31:00Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 2624,
+    "diffHunk" : "@@ -1,1 +2226,2230 @@[17:6..17:8): m7 <- example/Methods#m7().\n[17:9..17:10): U <- example/Methods#m7().[U]\n[17:10..17:10): <- example/Methods#m7().(evidence$1)\n[17:12..17:20): Ordering -> scala/math/Ordering#\n[17:22..17:23): c <- example/Methods#m7().(c)"
+  },
+  {
+    "id" : "200f814b-9ace-4cb2-9c15-d5d9848d2e2d",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-725883201",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "d2989cca-0dfa-4da7-96e3-064d4d003af4",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "not sure whats going on here in the upper bound",
+        "createdAt" : "2021-08-07T02:41:56Z",
+        "updatedAt" : "2021-08-07T02:57:17Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "76113ee7-1929-4a65-9331-819cb52ccebe",
+        "parentId" : "d2989cca-0dfa-4da7-96e3-064d4d003af4",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "This is `<?>` because the upper bound is TypeLambda, which is not yet supported in this PR. This should be resolved in the later PR.\r\nhttps://github.com/lampepfl/dotty/blob/04464b9e2f3a67c5f42c608ea33d0f56cf223464/tests/semanticdb/expect/Advanced.scala#L48",
+        "createdAt" : "2021-08-09T10:17:57Z",
+        "updatedAt" : "2021-08-09T10:17:58Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "490c5637-0772-4598-bc1a-c1f36bedcdde",
+        "parentId" : "d2989cca-0dfa-4da7-96e3-064d4d003af4",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "ah yes that makes sense",
+        "createdAt" : "2021-08-09T23:15:19Z",
+        "updatedAt" : "2021-08-09T23:15:19Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 83,
+    "diffHunk" : "@@ -1,1 +58,62 @@advanced/C#t(). => method t => T\nadvanced/HKClass# => class HKClass [typeparam F [typeparam T ] <: <?>] extends Object { self: HKClass[F] => +3 decls }\nadvanced/HKClass#[F] => typeparam F [typeparam T ] <: <?>\nadvanced/HKClass#[F][T] => typeparam T \nadvanced/HKClass#`<init>`(). => primary ctor <init> [typeparam F [typeparam T ] <: <?>](): HKClass[F]"
+  },
+  {
+    "id" : "55516d56-5887-40a7-9dff-57036fa6162c",
+    "prId" : 13239,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/13239#pullrequestreview-724177405",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "48e503a9-e1d9-451c-8cb2-61008added57",
+        "parentId" : null,
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "Is this really given? Can they be lazy?\r\n```suggestion\r\n_empty_/Enums.Suits.derived$CanEqual. => lazy val given method derived$CanEqual\r\n```",
+        "createdAt" : "2021-08-05T14:24:37Z",
+        "updatedAt" : "2021-08-05T14:53:09Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "3e97647e-e148-437c-ac8d-16d73b973432",
+        "parentId" : "48e503a9-e1d9-451c-8cb2-61008added57",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "Yes, this is actually `Given`. This symbol is automatically generated `given` value by `drives CanEqual`\r\n\r\n```scala\r\nenum Suits derives CanEqual:\r\n  case Hearts, Spades, Clubs, Diamonds\r\n\r\n// `drives CanEuqual` will automatically generate given instance something like\r\nlazy given val derived$CanEqual: CanEqual[Enums.Suits, Enums.Suits] = \r\n   CanEqual.derived\r\n```\r\n\r\nhttps://dotty.epfl.ch/docs/reference/contextual/derivation.html",
+        "createdAt" : "2021-08-06T07:20:34Z",
+        "updatedAt" : "2021-08-06T07:20:35Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "fc75e7da-9e73-4bf8-beb1-036fb3335961",
+        "parentId" : "48e503a9-e1d9-451c-8cb2-61008added57",
+        "authorId" : "d08d2c4a-dc79-4be6-96b0-506d21e90d1d",
+        "body" : "Yes, parameterless givens are mapped to lazyvals by default. Some of them are mapped to defs when we can prove that that does not change semantics, so that we can omit generating a field.",
+        "createdAt" : "2021-08-06T09:38:26Z",
+        "updatedAt" : "2021-08-06T09:39:15Z",
+        "lastEditedBy" : "d08d2c4a-dc79-4be6-96b0-506d21e90d1d",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "e7a641c5ad61fa683423954fa9263079a890c809",
+    "line" : 23,
+    "diffHunk" : "@@ -1,1 +936,940 @@_empty_/Enums.Suits.Hearts. => case val static enum method Hearts\n_empty_/Enums.Suits.Spades. => case val static enum method Spades\n_empty_/Enums.Suits.derived$CanEqual. => lazy val given method derived$CanEqual\n_empty_/Enums.Suits.fromOrdinal(). => method fromOrdinal\n_empty_/Enums.Suits.fromOrdinal().(ordinal) => param ordinal"
   }
 ]

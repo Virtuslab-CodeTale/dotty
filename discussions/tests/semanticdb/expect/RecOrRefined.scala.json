@@ -1,0 +1,46 @@
+[
+  {
+    "id" : "8d46501e-6a74-4303-820f-72e023ab97dd",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-703169836",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "e8df0814-de4d-4744-a57f-6f3a5d0aac49",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "could be good to test a polymorphic refinement, which is allowed if it is not structural:\r\n```scala\r\ntrait PolyHolder {\r\n  def foo[T](t: T): Any\r\n}\r\n\r\n...\r\n\r\ndef m4(x: PolyHolder { def foo[T](t: T): T }) = ???\r\n```",
+        "createdAt" : "2021-07-07T15:04:25Z",
+        "updatedAt" : "2021-07-07T15:09:10Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "f1936eb4-6781-4805-93ef-5182118a01d4",
+        "parentId" : "e8df0814-de4d-4744-a57f-6f3a5d0aac49",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "btw, the refinements are printed as empty if the refinement type is the result of a polymorphic method:\r\n```scala\r\ndef m5[Z](x: Int): PolyHolder { def foo[T](t: T): T } = ???\r\n```\r\n\r\nprints as\r\n```\r\nmethod m5 [typeparam Z ](param x: Int): PolyHolder {}\r\n```",
+        "createdAt" : "2021-07-07T15:08:58Z",
+        "updatedAt" : "2021-07-07T15:12:45Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "fe5f4bac-a741-4ad6-bd42-64739f822467",
+        "parentId" : "e8df0814-de4d-4744-a57f-6f3a5d0aac49",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "Fixed https://github.com/lampepfl/dotty/pull/12885/commits/e68287a1229928ba27cae88e3f88d64ed30e0b70",
+        "createdAt" : "2021-07-09T15:32:43Z",
+        "updatedAt" : "2021-07-09T15:32:43Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 5,
+    "diffHunk" : "@@ -1,1 +3,7 @@def m1(a: Int { val x: Int }) = ???\ndef m2(x: { val x: Int; def y: Int }) = ???\ndef m3(x: { val x: Int; def y: Int; type z }) = ???\ntrait PolyHolder {\n  def foo[T](t: T): Any"
+  }
+]

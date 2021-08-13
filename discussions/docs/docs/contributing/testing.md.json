@@ -141,5 +141,27 @@
     "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
     "line" : 5,
     "diffHunk" : "@@ -1,1 +166,170 @@control.\n\n## Troubleshooting\n\nSome of the tests depend on temporary state stored in the `out` directory. In rare cases, that directory"
+  },
+  {
+    "id" : "ae119adf-c20e-4e6b-b71c-7e8ebd467c99",
+    "prId" : 13173,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/13173#pullrequestreview-719589013",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "8a02085d-0415-42db-8d91-9e36e34913c9",
+        "parentId" : null,
+        "authorId" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "body" : "Wrote up some advice I got from gitter.",
+        "createdAt" : "2021-07-31T17:02:50Z",
+        "updatedAt" : "2021-07-31T17:02:50Z",
+        "lastEditedBy" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
+    "line" : 5,
+    "diffHunk" : "@@ -1,1 +166,170 @@control.\n\n## Troubleshooting\n\nSome of the tests depend on temporary state stored in the `out` directory. In rare cases, that directory"
   }
 ]

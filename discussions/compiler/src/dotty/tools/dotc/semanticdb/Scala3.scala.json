@@ -31,5 +31,225 @@
     "commit" : "d594863cc2718190daa9569f3015f04523b08418",
     "line" : 28,
     "diffHunk" : "@@ -1,1 +26,30 @@  private val WILDCARDTypeName = nme.WILDCARD.toTypeName\n\n  enum SymbolKind derives Eql with\n    kind =>\n"
+  },
+  {
+    "id" : "442a9b82-aa1d-47e9-97e4-b0ec0a7c6df4",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-697804577",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "35727aba-016d-44ff-8f2d-3b8845af7e2a",
+        "parentId" : null,
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "Not sure if we want `Case` for EnumCase. It's not a modifier in enums. \r\n```suggestion\r\n        if sym.isAllOf(Case | Module) || sym.is(CaseClass) then\r\n```",
+        "createdAt" : "2021-06-30T15:52:19Z",
+        "updatedAt" : "2021-07-01T14:07:32Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "2c36cb90-479e-4bae-b5d5-11dbee78224f",
+        "parentId" : "35727aba-016d-44ff-8f2d-3b8845af7e2a",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "`EnumCase` how we identify singleton enum values, so `case` should be there as it is part of the definition",
+        "createdAt" : "2021-07-01T14:23:53Z",
+        "updatedAt" : "2021-07-01T14:23:53Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "b98042a7-dfea-4b05-8b24-ddb2ddcd8525",
+        "parentId" : "35727aba-016d-44ff-8f2d-3b8845af7e2a",
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "Case is defined as: `CASE | Has a case modifier?`\r\n\r\nSo in reality, it doesn't have a case modifier, it's more akin to match cases. I think it would be best to have it as a EnumCase, separate from just Case",
+        "createdAt" : "2021-07-01T16:18:58Z",
+        "updatedAt" : "2021-07-01T16:18:58Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "61c86bfa-63a8-40fd-b375-d34704934ff2",
+        "parentId" : "35727aba-016d-44ff-8f2d-3b8845af7e2a",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "Im not sure what you mean,\r\n```scala\r\nenum Color {\r\n  case Red\r\n  ...\r\n}\r\n```\r\n\r\nhere `Red` is defined with the `case` modifier, which is what `sym.isAllOf(EnumCase)` is checking for",
+        "createdAt" : "2021-07-01T17:39:41Z",
+        "updatedAt" : "2021-07-01T17:40:31Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "4c79208c-3b4f-4bec-bda9-829fad43d97b",
+        "parentId" : "35727aba-016d-44ff-8f2d-3b8845af7e2a",
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "Is it a modifier though? With case class it is indeed a modifier, in enum those cases are obligatory, without case they do not exist. You cannot write just \"Red\"",
+        "createdAt" : "2021-07-01T21:12:15Z",
+        "updatedAt" : "2021-07-01T21:12:16Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "37523f06-dbf7-4901-9219-7bb794d5a783",
+        "parentId" : "35727aba-016d-44ff-8f2d-3b8845af7e2a",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "I think it is important, `case` distinguishes `Red` from being any old val (like its desugared form), which plays into things like exhaustivity checking or the \"provably disjoint\" check for match types. I do see we do give them the `enum` modifier also at least.",
+        "createdAt" : "2021-07-01T21:48:35Z",
+        "updatedAt" : "2021-07-01T21:48:35Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "4d3a0ac9-64be-4244-b209-12a0092e797a",
+        "parentId" : "35727aba-016d-44ff-8f2d-3b8845af7e2a",
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "Ok, I guess if we have both it is an EnumCase kind. Makes sense!",
+        "createdAt" : "2021-07-01T21:50:42Z",
+        "updatedAt" : "2021-07-01T21:50:42Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "4b21097f-f300-471e-8e3c-4fb9471cb308",
+        "parentId" : "35727aba-016d-44ff-8f2d-3b8845af7e2a",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "I think it's ok to add `Case` to EnumCase, since we can tell the symbols of EnumCase by checking if there're properties : `Enum` and `Case`",
+        "createdAt" : "2021-07-02T03:58:25Z",
+        "updatedAt" : "2021-07-02T03:58:25Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 186,
+    "diffHunk" : "@@ -1,1 +278,282 @@        if sym.is(Lazy, butNot=Module) then\n          props |= SymbolInformation.Property.LAZY.value\n        if sym.isAllOf(Case | Module) || sym.is(CaseClass) || sym.isAllOf(EnumCase) then\n          props |= SymbolInformation.Property.CASE.value\n        if sym.is(Covariant) then"
+  },
+  {
+    "id" : "c708d894-0052-4044-afa8-066758e88546",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-710824045",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "3e9e207d-e1b9-4c3d-b7fd-c320966fd543",
+        "parentId" : null,
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "Should we have an additional kind for `inline` ? We might need to update the modifiers in semanticdb. Also, should we recognize `inline` methods as macros? @bishabosha what do you think?",
+        "createdAt" : "2021-06-30T15:53:51Z",
+        "updatedAt" : "2021-07-01T14:07:32Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "76991bd9-55cf-4e06-8d6b-b1e10543117e",
+        "parentId" : "3e9e207d-e1b9-4c3d-b7fd-c320966fd543",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "I think it could be good to have a new `Inline` kind, and possibly `TransparentInline` `TransparentMacro` (due to the different semantics) but maybe they should be properties?",
+        "createdAt" : "2021-07-07T11:57:27Z",
+        "updatedAt" : "2021-07-07T14:47:57Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "108a1e42-ad96-466a-8aa9-3364a5e8d915",
+        "parentId" : "3e9e207d-e1b9-4c3d-b7fd-c320966fd543",
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "@tanishiking maybe let's add this together with TypeLambda and MatchType PR?",
+        "createdAt" : "2021-07-20T16:59:46Z",
+        "updatedAt" : "2021-07-20T17:44:13Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 144,
+    "diffHunk" : "@@ -1,1 +236,240 @@          SymbolInformation.Kind.LOCAL\n        else if sym.isInlineMethod || sym.is(Macro) then\n          SymbolInformation.Kind.MACRO\n        else if sym.isConstructor then\n          SymbolInformation.Kind.CONSTRUCTOR"
+  },
+  {
+    "id" : "fe1a7aae-f9c1-45dd-8192-5afae0bfacc9",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-699174027",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "00c78a7e-dc28-49e8-a2d5-7b7c07c6de5c",
+        "parentId" : null,
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "```suggestion\r\n        else if sym.isOneOf(Method)) then\r\n```\r\nAre val/var set as methods in Scala 2?",
+        "createdAt" : "2021-06-30T16:00:56Z",
+        "updatedAt" : "2021-07-01T14:07:32Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "4896e5fa-7094-4ab8-9501-fe9bf445401c",
+        "parentId" : "00c78a7e-dc28-49e8-a2d5-7b7c07c6de5c",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "```scala\r\nobject Foo {\r\n  val x = 23\r\n  var y = 47\r\n}\r\n```\r\ngives with Scala 2 `metac` and `metap`:\r\n```\r\nSymbols:\r\n_empty_/Foo. => final object Foo extends AnyRef { +3 decls }\r\n_empty_/Foo.`y_=`(). => var method y_=(x$1: Int): Unit\r\n_empty_/Foo.`y_=`().(x$1) => param x$1: Int\r\n_empty_/Foo.x. => val method x: Int\r\n_empty_/Foo.y(). => var method y: Int\r\n```",
+        "createdAt" : "2021-07-02T14:10:52Z",
+        "updatedAt" : "2021-07-02T15:18:34Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "9350bc1b-8665-4a56-b101-7d41cfae1c93",
+        "parentId" : "00c78a7e-dc28-49e8-a2d5-7b7c07c6de5c",
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "So it seems it's only a method for the var.",
+        "createdAt" : "2021-07-05T13:21:27Z",
+        "updatedAt" : "2021-07-05T13:21:27Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 149,
+    "diffHunk" : "@@ -1,1 +241,245 @@        else if sym.isSelfSym then\n          SymbolInformation.Kind.SELF_PARAMETER\n        else if sym.isOneOf(Method) || symkinds.exists(_.isVarOrVal) then\n          SymbolInformation.Kind.METHOD\n        else if sym.isPackageObject then"
+  },
+  {
+    "id" : "ac01ecd8-c641-436a-a447-da585655c2e8",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-698226757",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "bbb8fe13-de02-4cf6-8323-cb1a74a3cd69",
+        "parentId" : null,
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "Should we set this instead for EnumCase ? Or should we have a separate kind?",
+        "createdAt" : "2021-07-01T13:37:03Z",
+        "updatedAt" : "2021-07-01T14:07:32Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "0517811d-3ab3-4cbf-b4d1-ec4ee066a8a5",
+        "parentId" : "bbb8fe13-de02-4cf6-8323-cb1a74a3cd69",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "have both Enum and Case",
+        "createdAt" : "2021-07-02T14:17:10Z",
+        "updatedAt" : "2021-07-02T15:18:34Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 201,
+    "diffHunk" : "@@ -1,1 +293,297 @@          props |= SymbolInformation.Property.STATIC.value\n        if sym.is(Enum) then\n          props |= SymbolInformation.Property.ENUM.value\n        if sym.is(Given) then\n          props |= SymbolInformation.Property.GIVEN.value"
   }
 ]

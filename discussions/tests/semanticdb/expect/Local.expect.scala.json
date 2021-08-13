@@ -1,0 +1,35 @@
+[
+  {
+    "id" : "9763f35a-825a-4499-8e51-f17322c6759f",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-699837381",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "9f7897dc-354a-4913-8330-9e14795c25d3",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "so the Scala 2 semanticdb implementation matches the old version exactly, whereas here the locals are in the opposite order. (I will look to see if there is a way to avoid reversing the traversal order in `ExtractSemanticDB`)",
+        "createdAt" : "2021-07-05T12:00:57Z",
+        "updatedAt" : "2021-07-05T12:57:17Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "91989842-2014-4fb4-9733-cc69e790930a",
+        "parentId" : "9f7897dc-354a-4913-8330-9e14795c25d3",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "As you may know, this is because of the change in traversing order. And I think this isn't a big deal for SemanticDB consumers as long as the same (compiler's) symbol has the same (semanticdb's) symbol.",
+        "createdAt" : "2021-07-06T11:25:56Z",
+        "updatedAt" : "2021-07-06T11:25:57Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 6,
+    "diffHunk" : "@@ -1,1 +3,7 @@class Local/*<-example::Local#*/ {\n  def a/*<-example::Local#a().*/() = {\n    def id/*<-local2*/[A/*<-local0*/](a/*<-local1*/: A/*->local0*/): A/*->local0*/ = a/*->local1*/\n    id/*->local2*/(1)\n  }"
+  }
+]

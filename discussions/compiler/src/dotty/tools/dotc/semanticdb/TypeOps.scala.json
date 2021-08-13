@@ -1,0 +1,354 @@
+[
+  {
+    "id" : "f1b22070-12e7-457f-970b-303f1edbb0c5",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-697798355",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "02877266-edae-4495-b0cd-e480aff01d32",
+        "parentId" : null,
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "Why do we need to set this as given?",
+        "createdAt" : "2021-07-01T13:40:13Z",
+        "updatedAt" : "2021-07-01T14:07:32Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "719fcf8f-22c9-4d84-a5f6-3654d4ab99b7",
+        "parentId" : "02877266-edae-4495-b0cd-e480aff01d32",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "Because we pass the instance of `TypeOps` to `sscope` (which pass it to `symbolInfo`)\r\nMaybe we should give the instance of `TypeOps` explicitly because I use `given` for no big reason: I used `given` just because I was too lazy 😅 ",
+        "createdAt" : "2021-07-02T03:37:02Z",
+        "updatedAt" : "2021-07-02T03:37:02Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 28,
+    "diffHunk" : "@@ -1,1 +26,30 @@  // save generated fake symbols so we can insert them into symbols section of SemanticDB\n  val fakeSymbols = mutable.Set[FakeSymbol]()\n  given typeOps: TypeOps = this\n\n  extension [T <: LambdaType | RefinedType](symtab: mutable.Map[(T, Name), Symbol])"
+  },
+  {
+    "id" : "260a5d86-f144-42a3-a2fe-3245fa190c1d",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-698580685",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "bf558ce7-244a-4f5a-8ee5-5f4c648960ca",
+        "parentId" : null,
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "This is already handle within `case ClassInfo`, is it needed here? Or maybe we could jsut recursively use `enterRefined` ?",
+        "createdAt" : "2021-07-01T13:42:37Z",
+        "updatedAt" : "2021-07-01T14:07:32Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "6fd75e41-4b12-4f80-85c7-59510c43160b",
+        "parentId" : "bf558ce7-244a-4f5a-8ee5-5f4c648960ca",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "This is needed because, for example the `tpe` is instance of `RecType`, it recursively call `enterRefined(rec.parent)` and `RecType#parent` should be always `RefinedType`. (this case is the base case of this recursive function).\r\n\r\nMaybe we can refactor it from\r\n```scala\r\ncase refined: RefinedType =>\r\n  val key = (refined, sym.name)\r\n  refinementSymtab(key) = sym\r\n```\r\n\r\nto \r\n\r\n```scala\r\ncase refined: RefinedType =>\r\n  enterRefined(refined)\r\n```",
+        "createdAt" : "2021-07-02T03:20:25Z",
+        "updatedAt" : "2021-07-02T03:20:26Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "c7f23397-6cdd-4b4a-a662-935fda5dfbe5",
+        "parentId" : "bf558ce7-244a-4f5a-8ee5-5f4c648960ca",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "https://github.com/lampepfl/dotty/pull/12885/commits/3cad5f33d80a7bb7a6c8001bf4531ccb61c12d9d",
+        "createdAt" : "2021-07-03T09:26:37Z",
+        "updatedAt" : "2021-07-03T09:26:37Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 103,
+    "diffHunk" : "@@ -1,1 +101,105 @@      def enterRefined(tpe: Type): Unit =\n        tpe match {\n          case refined: RefinedType =>\n            val key = (refined, sym.name)\n            refinementSymtab(key) = sym"
+  },
+  {
+    "id" : "a7f916ba-84f8-4051-9535-8fbb5d2a48f8",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-715937017",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "b590c97c-8951-4fee-a95a-4c9e8e084ec1",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "might want to be careful of type aliases used as annotations here, which won't have `ClassInfo` as their info, maybe `annot.symbol` takes care of this",
+        "createdAt" : "2021-07-05T15:14:13Z",
+        "updatedAt" : "2021-07-05T15:22:23Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "e0cc1c07-a211-48e4-b085-3e4098498c19",
+        "parentId" : "b590c97c-8951-4fee-a95a-4c9e8e084ec1",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "Judging from the `Annotations.symbol` https://github.com/lampepfl/dotty/blob/601184787508d8fd655f1dc4e48ed19c418fa710/compiler/src/dotty/tools/dotc/core/Annotations.scala#L13-L15 I guess we can expect there should only be `ClassInfo`.\r\nSince I tried but couldn't find a counter-example for this, maybe we can go with it, and fix it in the future when we find a example here.",
+        "createdAt" : "2021-07-07T06:58:49Z",
+        "updatedAt" : "2021-07-07T06:58:49Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "fba3bd81-43bd-4060-99ca-81a92ed0b308",
+        "parentId" : "b590c97c-8951-4fee-a95a-4c9e8e084ec1",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "I confirmed with testing it does not matter if the type is aliased, however it does not work for nested annotated types, e.g.\r\n```scala\r\n// tests/semanticdb/expect/InstrumentTyper.scala\r\ntype paramAlias = param\r\ntype paramRec = param @param\r\ntype AnnotatedType = Int @param\r\ntype AnnotatedType2 = Int @paramAlias\r\ntype AnnotatedType3 = Int @(param @param)\r\ntype AnnotatedType4 = Int @paramRec\r\n```\r\nIn these cases `AnnotatedType<3|4>` info is `Int @param` but scala 2 would have `Int @param @param`",
+        "createdAt" : "2021-07-07T16:23:09Z",
+        "updatedAt" : "2021-07-07T16:27:19Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "eb7c141e-79bb-4adf-b055-dd95b6758736",
+        "parentId" : "b590c97c-8951-4fee-a95a-4c9e8e084ec1",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "I believe this still needs resolving",
+        "createdAt" : "2021-07-27T15:47:40Z",
+        "updatedAt" : "2021-07-27T15:58:09Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 332,
+    "diffHunk" : "@@ -1,1 +330,334 @@        case ann: AnnotatedType if ann.annot.symbol.info.isInstanceOf[ClassInfo] =>\n          def flatten(tpe: Type, annots: List[Annotation]): (Type, List[Annotation]) = tpe match\n            case AnnotatedType(parent, annot) if annot.symbol.info.isInstanceOf[ClassInfo] =>\n              flatten(parent, annot +: annots)\n            case other => (other, annots)"
+  },
+  {
+    "id" : "b3dec9f8-0852-4b2c-bb56-4c1d3227a683",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-701133035",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "92afda51-455a-4160-b222-51f4266118d1",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "maybe missing `PolyType` here?",
+        "createdAt" : "2021-07-05T15:21:33Z",
+        "updatedAt" : "2021-07-05T15:22:23Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "8ba46f50-898f-4e76-9082-89a18a805373",
+        "parentId" : "92afda51-455a-4160-b222-51f4266118d1",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "As far as I know, `PolyType` shouldn't appear here as long as they're handled by toSemanticSig (at least I confirmed there're no appearance in `semanticdb/expect`) (and actually I'm not sure how to convert `PolyType` into SemanticDB types, if there exists).",
+        "createdAt" : "2021-07-07T04:59:50Z",
+        "updatedAt" : "2021-07-07T04:59:51Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "ab85ce79-cfab-433b-98ed-a16e3ccab94f",
+        "parentId" : "92afda51-455a-4160-b222-51f4266118d1",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "see my comment here https://github.com/lampepfl/dotty/pull/12885#discussion_r665464218\r\nEdit: it does not seem to help by adding `PolyType` here, but still something is up",
+        "createdAt" : "2021-07-07T15:11:06Z",
+        "updatedAt" : "2021-07-07T17:10:55Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 122,
+    "diffHunk" : "@@ -1,1 +120,124 @@              case rt: RefinedType =>\n                refinementSymtab((rt, sym.name)) = sym\n              case _ => ()\n\n          case cls: ClassInfo if (cls.cls.name == tpnme.REFINE_CLASS) =>"
+  },
+  {
+    "id" : "f0497887-799c-4fbc-be3e-dbb86dff2b9f",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-699833653",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "36e9d15e-47ea-45bc-a09e-abeacf7c4953",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "is this case only meant for the primary constructor?",
+        "createdAt" : "2021-07-06T08:59:47Z",
+        "updatedAt" : "2021-07-06T09:00:07Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "20f4d9e9-0914-489f-915e-8207351a4a78",
+        "parentId" : "36e9d15e-47ea-45bc-a09e-abeacf7c4953",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "Yes, I meant only for the primary constructor",
+        "createdAt" : "2021-07-06T11:21:20Z",
+        "updatedAt" : "2021-07-06T11:21:20Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 87,
+    "diffHunk" : "@@ -1,1 +85,89 @@          // for class constructor\n          // class C[T] { ... }\n          case cls: ClassInfo if sym.info.isInstanceOf[LambdaType] =>\n            val lam = sym.info.asInstanceOf[LambdaType]\n            cls.cls.typeParams.foreach { param =>"
+  },
+  {
+    "id" : "bf8feca8-f82c-42f6-b9e8-f88a71b64344",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-700914370",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "c629ed63-d9cb-4856-82d5-b3e43a05ffe4",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "I much prefer this recursive version :)",
+        "createdAt" : "2021-07-07T12:36:27Z",
+        "updatedAt" : "2021-07-07T14:47:57Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 148,
+    "diffHunk" : "@@ -1,1 +146,150 @@\n      def loop(tpe: Type): s.Signature = tpe match {\n        case mp: MethodOrPoly =>\n          def flatten(\n            t: Type,"
+  },
+  {
+    "id" : "4167f0dc-bc92-4583-a799-c1015e8957a5",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-706979955",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "0f84ae33-0064-4036-a3dc-3bf00c00d462",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "refinements will also be empty in the upper bound of type param `PickOneRefinement_1#[S]` (if you implement the change to `PPrint.scala`) for this example:\r\n```scala\r\ntrait SpecialRefinement {\r\n  def pickOne(as: String*): Option[Any]\r\n}\r\n\r\nclass PickOneRefinement_1[S <: SpecialRefinement { def pickOne(as: String*): Option[String] }] {\r\n  def run(s: S, as: String*): Option[String] = s.pickOne(as:_*)\r\n}\r\n```",
+        "createdAt" : "2021-07-07T17:13:00Z",
+        "updatedAt" : "2021-07-07T17:14:37Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "a6ad21e7-fc60-4642-bd89-b89e8b12fe8c",
+        "parentId" : "0f84ae33-0064-4036-a3dc-3bf00c00d462",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "I found we fail to retrieve the symbol for `pickOne` (of `SpecialRefinement { def pickOne(...) }`) because we don't traverse and generate the semanticdb symbol occurrence for `pickOne`.\r\n\r\nFor example, the `.expect.scala` for `PickOneRefinement_1` looks like:\r\n\r\n```scala\r\ntrait SpecialRefinement/*<-example::SpecialRefinement#*/ {\r\n  def pickOne/*<-example::SpecialRefinement#pickOne().*/(as/*<-example::SpecialRefinement#pickOne().(as)*/: String/*->scala::Predef.String#*/*): Option/*->scala::Option#*/[Any/*->scala::Any#*/]\r\n}\r\n\r\nclass PickOneRefinement_1/*<-example::PickOneRefinement_1#*/[S/*<-example::PickOneRefinement_1#[S]*/ <: SpecialRefinement { def pickOne(as: String*): Option[String] }] {\r\n  def run/*<-example::PickOneRefinement_1#run().*/(s/*<-example::PickOneRefinement_1#run().(s)*/: S/*->example::PickOneRefinement_1#[S]*/, as/*<-example::PickOneRefinement_1#run().(as)*/: String/*->scala::Predef.String#*/*): Option/*->scala::Option#*/[String/*->scala::Predef.String#*/] = s/*->example::PickOneRefinement_1#run().(s)*/.pickOne/*->example::SpecialRefinement#pickOne().*/(as/*->example::PickOneRefinement_1#run().(as)*/:_*)\r\n}\r\n```\r\n\r\nBecause the `TypeDef` for `S` looks like, and we don't traverse the `pickOne` inside `TypeTree`.\r\n\r\n```scala\r\nTypeDef(\r\n  S,\r\n  TypeTree[TypeBounds(TypeRef(ThisType(TypeRef(NoPrefix,module class scala)),class Nothing),RefinedType(TypeRef(ThisType(TypeRef(NoPrefix,module class example)),trait SpecialRefinement),pickOne,MethodType(List(as), List(AppliedType(TypeRef(ThisType(TypeRef(NoPrefix,module class scala)),class <repeated>),List(TypeRef(TermRef(ThisType(TypeRef(NoPrefix,module class scala)),object Predef),type String)))), AppliedType(TypeRef(TermRef(ThisType(TypeRef(NoPrefix,module class <root>)),object scala),class Option),List(TypeRef(TermRef(ThisType(TypeRef(NoPrefix,module class scala)),object Predef),type String))))))]\r\n)\r\n```\r\n\r\n",
+        "createdAt" : "2021-07-09T15:28:18Z",
+        "updatedAt" : "2021-07-09T15:28:18Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "ba5435e1-f460-4486-ad6e-9d7f449a8803",
+        "parentId" : "0f84ae33-0064-4036-a3dc-3bf00c00d462",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "~Maybe we can retrieve the symbol of `pickOne` using `SymDenotaiton#member`~\r\ncreating a new symbol for pickOne here ?",
+        "createdAt" : "2021-07-12T08:08:51Z",
+        "updatedAt" : "2021-07-12T08:10:33Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "92165aae-a2cb-43f6-8b5f-c218b8a6924f",
+        "parentId" : "0f84ae33-0064-4036-a3dc-3bf00c00d462",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "(maybe in the future) Or maybe we can traverse inside the TypeTree and construct a symbol table associate between name and TypeTree?",
+        "createdAt" : "2021-07-12T08:21:21Z",
+        "updatedAt" : "2021-07-12T08:24:06Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "4d293223-7d92-4655-89d1-531a1ebd7603",
+        "parentId" : "0f84ae33-0064-4036-a3dc-3bf00c00d462",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "`rt.member` works for this case :tada:\r\nhttps://github.com/lampepfl/dotty/pull/12885/commits/332609f7adb814c813ec3addfb78e896271f3703\r\n\r\n(However, I actually don't understand, which case it works and which case it doesn't...)",
+        "createdAt" : "2021-07-15T06:42:17Z",
+        "updatedAt" : "2021-07-15T06:42:17Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 280,
+    "diffHunk" : "@@ -1,1 +278,282 @@          s.ConstantType(const.toSemanticConst)\n\n        case rt @ RefinedType(parent, name, info) =>\n          // `X { def x: Int; def y: Int }`\n          // RefinedType("
+  },
+  {
+    "id" : "8e8aeb7a-723e-4b00-9e0d-e631bd1955f6",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-715937017",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "28361e60-c216-438f-aafb-e77c9a60df3e",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "We can't pretend that `F[T][U]` is `F[T, U]` as that breaks the arity of `F`, this will need a new semanticdb message to support, dotty captures this in `TypeRef` which just has the `prefix` and `symbol` fields, and then `AppliedType` has a `tycon` field, the type being applied and could be a nested `AppliedType`, and the `args` field,",
+        "createdAt" : "2021-07-27T14:42:32Z",
+        "updatedAt" : "2021-07-27T15:58:09Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 376,
+    "diffHunk" : "@@ -1,1 +374,378 @@              // For curried applied type `F[T][U]` and tycon is also an `AppliedType`\n              // Convert it to TypeRef(..., targs = List(T, U))\n              ref.copy(typeArguments = targs ++ sargs)\n            case _ =>\n              s.Type.Empty"
+  },
+  {
+    "id" : "f2cdbc16-d586-43e7-bf22-7458c6dc5a15",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-725096202",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "6c4c1c70-2d52-41c2-8f1d-b1ec54e01d37",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "I was talking to @smarter and you may be able to resolve the `TypeTree` issue here by reusing the trees for the primary constructor type parameters (accessed through `sym.defTree`) - being careful to substitute symbols - maybe the same for exported type aliases (look in tree of rhs to get a type, but then exports of exports may pick up `TypeTree`)\r\n\r\nEdit - however looking at metac.expect it seems the fake symbols are solving this problem pretty well - so may not be worth investigating (although looking in these trees will help for extracting spans)",
+        "createdAt" : "2021-08-07T02:21:42Z",
+        "updatedAt" : "2021-08-07T02:59:18Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "5dd63aa3-533c-4de6-9c66-b90aba8eae3a",
+        "parentId" : "6c4c1c70-2d52-41c2-8f1d-b1ec54e01d37",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "Thanks! I'll take a look at it in another issue / PR.\r\nWhile the lack of symbol problem in TypeTree has been well resolved in terms of signature, I believe the lack of symbol occurrence in TypeTree is an issue to fix (it leads to the problem in rename feature in metals, and this kind of problem \r\nhttps://github.com/tanishiking/scalafix-unused/issues/5 in scalafix semantic rules).",
+        "createdAt" : "2021-08-09T07:40:06Z",
+        "updatedAt" : "2021-08-09T07:40:06Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 182,
+    "diffHunk" : "@@ -1,1 +180,184 @@\n        case cls: ClassInfo =>\n          val stparams = cls.cls.typeParams.sscopeOpt\n          val sparents = cls.parents.map(_.toSemanticType(sym))\n          val sself = cls.selfType.toSemanticType(sym)"
+  }
+]

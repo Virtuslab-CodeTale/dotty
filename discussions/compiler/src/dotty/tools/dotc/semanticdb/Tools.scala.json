@@ -97,5 +97,49 @@
     "commit" : "b9338e45e5aac561aa4af64a89fc32aaff73d433",
     "line" : 8,
     "diffHunk" : "@@ -1,1 +13,17 @@    // Calling `.toUri` on a relative path will convert it to absolute. Iteration through its parts instead preserves\n    // the resulting URI as relative.\n    val uriParts = for part <- path.asScala yield new java.net.URI(null, null, part.toString, null)\n    uriParts.mkString(\"/\")\n"
+  },
+  {
+    "id" : "de78b539-f05d-4d49-a10a-4599059116f0",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-698929787",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "b0a6031a-6278-4b52-a15e-214abd31dfcd",
+        "parentId" : null,
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "we can pass in `sb` to `pprintSymbolInformation` here for more efficiency",
+        "createdAt" : "2021-07-02T14:43:59Z",
+        "updatedAt" : "2021-07-02T15:18:34Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "e957df1a-ca73-4369-b8e0-676e75072c88",
+        "parentId" : "b0a6031a-6278-4b52-a15e-214abd31dfcd",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "Should we much priority on string concatenation efficiency?\r\n- I personally prefer returning String instead of passing `StringBuilder` (because of its code readability).\r\n- While I understand `StringBuilder` concatenation is generally faster, this pretty printer is used only for testing and the efficiency might be not a big deal?\r\n- btw, what do you think about this approach? https://github.com/lampepfl/dotty/pull/12885#discussion_r658769494",
+        "createdAt" : "2021-07-03T09:24:53Z",
+        "updatedAt" : "2021-07-03T09:24:53Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "a245a158-052b-4f72-b6c0-707f2e348877",
+        "parentId" : "b0a6031a-6278-4b52-a15e-214abd31dfcd",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "Its true the efficiency is not the priority before the correctness of the actual output, so this would only be the last thing to address.\r\n\r\nI have addressed that other comment now.",
+        "createdAt" : "2021-07-05T08:33:40Z",
+        "updatedAt" : "2021-07-05T08:33:40Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 80,
+    "diffHunk" : "@@ -1,1 +89,93 @@\n  private def processSymbol(info: SymbolInformation, printer: SymbolInfomationPrinter)(using sb: StringBuilder): Unit =\n    sb.append(printer.pprintSymbolInformation(info)).nl\n\n  private def processOccurrence(occ: SymbolOccurrence)(using sb: StringBuilder, sourceFile: SourceFile): Unit ="
   }
 ]

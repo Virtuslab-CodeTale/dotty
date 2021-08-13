@@ -64,5 +64,38 @@
     "commit" : "565abde9a1c654f99670f718ae6e692d82ca4414",
     "line" : 17,
     "diffHunk" : "@@ -1,1 +600,604 @@    val sourcePath = absolutePath(source.file.jpath)\n    val sourceRoot =\n      // Here if `sourceRoot` and `sourcePath` do not share a common prefix then `relPath` will not be normalised,\n      // containing ../.. etc, which is problematic when appending to `/META-INF/semanticdb/` and will not be accepted\n      // by Files.createDirectories on JDK 11."
+  },
+  {
+    "id" : "86e86492-363f-4eb7-a801-be98e1c5cdbd",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-695134857",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "11b62d92-8010-4e2f-aff2-2d89f5f273af",
+        "parentId" : null,
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "Sry, there's some indent change..., pls see the diff with `?w=1`...",
+        "createdAt" : "2021-06-29T14:32:35Z",
+        "updatedAt" : "2021-06-29T14:32:35Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "9b921d3d-bf3f-4785-8a7b-1dee588d9f93",
+        "parentId" : "11b62d92-8010-4e2f-aff2-2d89f5f273af",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "Modified the `traverse` function so that it traverses **child nodes first**, and then tries to register the Symbol of the current node.\r\n\r\nThis is required because in `TypeOps`, we construct the symbol table for `LambdaType` and `RecOrRefined`, and when we resolve the symbols for `ParamRef` (in `LambdaType`) and `refinement` (in `RefinedType` or `RecType`) by looking up that symbol table.\r\n\r\nFor example, if we have\r\n\r\n```scala\r\ntype Person = Record {\r\n  val name: String\r\n  val age: Int\r\n}\r\n```\r\n\r\nTo convert the refinement type for `Person` (`RefinedType(RefinedType(..., name, ...), age, ...)`) to `StructuralType(...)`, we have to know the symbol for `name` and `age`, which we cannot obtain purely from that type information.\r\nTo know the symbols for `name` and `age`, we\r\n- traverse the child nodes of `type Person` to register the symbol of `name` and `age` to the symbol table\r\n- and then convert the `RefinedType` of `Person` with resolving the symbols for `name` and `age` by looking up the symbol table.",
+        "createdAt" : "2021-06-29T14:44:49Z",
+        "updatedAt" : "2021-06-29T14:44:49Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 63,
+    "diffHunk" : "@@ -1,1 +132,136 @@        case tree: PackageDef =>\n          tree.stats.foreach(traverse)\n          if !excludeDef(tree.pid.symbol) && tree.pid.span.hasLength then\n            tree.pid match\n              case tree: Select =>"
   }
 ]

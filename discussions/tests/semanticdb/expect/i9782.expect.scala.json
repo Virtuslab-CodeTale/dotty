@@ -1,0 +1,57 @@
+[
+  {
+    "id" : "4e3a4592-a525-4b45-adcc-80f4a58e538e",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-715937017",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "0fa1d32f-3712-478b-933a-0034fe20cfa6",
+        "parentId" : null,
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "We seems to be missing occurrences for `Txn[T]`",
+        "createdAt" : "2021-07-20T17:22:16Z",
+        "updatedAt" : "2021-07-20T17:44:13Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "2b4a141b-171d-42ec-9354-b1c1b26f47fc",
+        "parentId" : "0fa1d32f-3712-478b-933a-0034fe20cfa6",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "Yeah... the part of `T <: Txn[T]` has the tree like:\r\n```scala\r\nTypeDef(T,TypeTree[TypeBounds(TypeRef(ThisType(TypeRef(NoPrefix,module class scala)),class Nothing),AppliedType(TypeRef(ThisType(TypeRef(NoPrefix,module class <empty>)),trait Txn),List(LazyRef(TypeRef(ThisType(TypeRef(ThisType(TypeRef(NoPrefix,module class <empty>)),trait Txn)),type T)))))])\r\n```\r\nand not sure how can we traverse into the `Txn[T]` part and get those symbols 🤔 ",
+        "createdAt" : "2021-07-21T13:46:06Z",
+        "updatedAt" : "2021-07-21T13:46:07Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "7b04cb20-c875-4e67-80e4-498e56eaaae3",
+        "parentId" : "0fa1d32f-3712-478b-933a-0034fe20cfa6",
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "It's not important for this PR, but maybe we could raise a follow up issue?",
+        "createdAt" : "2021-07-21T13:49:46Z",
+        "updatedAt" : "2021-07-21T13:49:46Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "4294a024-55ac-4c53-a0bc-990bac2e0d7f",
+        "parentId" : "0fa1d32f-3712-478b-933a-0034fe20cfa6",
+        "authorId" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "body" : "Also I don't think you would be able to extract any sensible spans from within a `TypeTree` without scanning source code - only trees have spans and the argument of `TypeTree` is a type.",
+        "createdAt" : "2021-07-27T15:09:17Z",
+        "updatedAt" : "2021-07-27T15:58:09Z",
+        "lastEditedBy" : "ee3715c4-bd36-4167-9988-9dfe1892f289",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 2,
+    "diffHunk" : "@@ -1,1 +0,4 @@// LazyRef\ntrait Txn/*<-_empty_::Txn#*/[T/*<-_empty_::Txn#[T]*/ <: Txn[T]]\n\ntrait Elem/*<-_empty_::Elem#*/[T/*<-_empty_::Elem#[T]*/ <: Txn[T]]"
+  }
+]

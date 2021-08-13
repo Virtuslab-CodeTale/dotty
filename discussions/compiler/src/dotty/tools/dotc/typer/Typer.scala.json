@@ -1857,5 +1857,38 @@
     "commit" : "4bb42ac376b9c21b76ebc1a525651bc09f2bfcba",
     "line" : 8,
     "diffHunk" : "@@ -1,1 +1468,1472 @@        val rawSelectorTpe = fullyDefinedType(sel1.tpe, \"pattern selector\", tree.span)\n        val selType = rawSelectorTpe match\n          case c: ConstantType if tree.isInline => c\n          case otherTpe => otherTpe.widen\n        /** Extractor for match types hidden behind an AppliedType/MatchAlias */"
+  },
+  {
+    "id" : "db22ee7d-7145-4d39-bfaa-c0c6558f9da4",
+    "prId" : 12902,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12902#pullrequestreview-715663312",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "6c382972-0e7b-49dc-aa64-7d6f29b0723e",
+        "parentId" : null,
+        "authorId" : "4ebe10b7-4cc5-4c8a-bf32-b97a4396b1b2",
+        "body" : "It should probably be matching `Singleton` as we also do not want to widen a `x.type`.",
+        "createdAt" : "2021-06-29T12:06:06Z",
+        "updatedAt" : "2021-06-29T12:09:03Z",
+        "lastEditedBy" : "4ebe10b7-4cc5-4c8a-bf32-b97a4396b1b2",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "c5034bb8-4601-4125-b3b4-a680e1115715",
+        "parentId" : "6c382972-0e7b-49dc-aa64-7d6f29b0723e",
+        "authorId" : "4ebe10b7-4cc5-4c8a-bf32-b97a4396b1b2",
+        "body" : "I updated this and added a test case",
+        "createdAt" : "2021-07-27T08:58:05Z",
+        "updatedAt" : "2021-07-27T08:58:05Z",
+        "lastEditedBy" : "4ebe10b7-4cc5-4c8a-bf32-b97a4396b1b2",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "4bb42ac376b9c21b76ebc1a525651bc09f2bfcba",
+    "line" : 8,
+    "diffHunk" : "@@ -1,1 +1468,1472 @@        val rawSelectorTpe = fullyDefinedType(sel1.tpe, \"pattern selector\", tree.span)\n        val selType = rawSelectorTpe match\n          case c: ConstantType if tree.isInline => c\n          case otherTpe => otherTpe.widen\n        /** Extractor for match types hidden behind an AppliedType/MatchAlias */"
   }
 ]

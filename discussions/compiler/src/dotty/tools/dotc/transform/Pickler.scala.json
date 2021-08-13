@@ -119,5 +119,27 @@
     "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
     "line" : 5,
     "diffHunk" : "@@ -1,1 +114,118 @@      testUnpickler(\n        using ctx2\n            .setPeriod(Period(ctx.runId + 1, ctx.base.typerPhase.id))\n            .setReporter(new ThrowingReporter(ctx.reporter))\n            .addMode(Mode.ReadPositions)"
+  },
+  {
+    "id" : "8da89395-c96a-4c98-bfb9-f3e766cc90ff",
+    "prId" : 13173,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/13173#pullrequestreview-719514549",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "5fdb912b-0952-4930-b6f8-f57738c52731",
+        "parentId" : null,
+        "authorId" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "body" : "This was needed to fix the pickling tests. I don't understand why. ",
+        "createdAt" : "2021-07-30T23:23:16Z",
+        "updatedAt" : "2021-07-30T23:23:16Z",
+        "lastEditedBy" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
+    "line" : 5,
+    "diffHunk" : "@@ -1,1 +114,118 @@      testUnpickler(\n        using ctx2\n            .setPeriod(Period(ctx.runId + 1, ctx.base.typerPhase.id))\n            .setReporter(new ThrowingReporter(ctx.reporter))\n            .addMode(Mode.ReadPositions)"
   }
 ]

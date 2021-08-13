@@ -130,5 +130,49 @@
     "commit" : "49f2d03a6372e8d7af0c90eac831627c077862e8",
     "line" : 5,
     "diffHunk" : "@@ -1,1 +27,31 @@\n  private def signaturesFromDocumentation()(using DocContext): Map[String, List[(String, String)]] =\n    val output = summon[DocContext].args.output.toPath\n    val signatures = List.newBuilder[(String, (String, String))]\n    def processFile(path: Path): Unit ="
+  },
+  {
+    "id" : "b239a88b-2c87-4302-a755-a5f4112898c9",
+    "prId" : 13130,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/13130#pullrequestreview-713807569",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "3b862e29-1101-4979-b12a-7035e0a3b003",
+        "parentId" : null,
+        "authorId" : "4107dafe-4e7b-4e85-8d5b-63e06e0e6318",
+        "body" : "Should this still use the `api` subdirectory in case of `-Yapi-subdirectory`?",
+        "createdAt" : "2021-07-23T14:47:26Z",
+        "updatedAt" : "2021-07-23T14:47:26Z",
+        "lastEditedBy" : "4107dafe-4e7b-4e85-8d5b-63e06e0e6318",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "7b55b084-0b10-480f-8020-bd86514a23d0",
+        "parentId" : "3b862e29-1101-4979-b12a-7035e0a3b003",
+        "authorId" : "4107dafe-4e7b-4e85-8d5b-63e06e0e6318",
+        "body" : "Oh, it’s in the tests, so forget about my comment.",
+        "createdAt" : "2021-07-23T14:48:06Z",
+        "updatedAt" : "2021-07-23T14:48:06Z",
+        "lastEditedBy" : "4107dafe-4e7b-4e85-8d5b-63e06e0e6318",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "18cf3ad8-38e1-4525-ab8f-173a18973aaf",
+        "parentId" : "3b862e29-1101-4979-b12a-7035e0a3b003",
+        "authorId" : "6135cab1-288c-42ce-a328-e0469e2b06c8",
+        "body" : "this is onlu test and I do not implement version for `-Yapi-subdirectory` since this tests are focused on signature not layout of repo. I've added basic test for structure with `-Yapi-subdirectory`",
+        "createdAt" : "2021-07-23T14:50:03Z",
+        "updatedAt" : "2021-07-23T14:50:03Z",
+        "lastEditedBy" : "6135cab1-288c-42ce-a328-e0469e2b06c8",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "49f2d03a6372e8d7af0c90eac831627c077862e8",
+    "line" : 5,
+    "diffHunk" : "@@ -1,1 +27,31 @@\n  private def signaturesFromDocumentation()(using DocContext): Map[String, List[(String, String)]] =\n    val output = summon[DocContext].args.output.toPath\n    val signatures = List.newBuilder[(String, (String, String))]\n    def processFile(path: Path): Unit ="
   }
 ]

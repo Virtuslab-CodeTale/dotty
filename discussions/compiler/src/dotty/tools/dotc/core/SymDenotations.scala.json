@@ -1318,5 +1318,27 @@
     "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
     "line" : 5,
     "diffHunk" : "@@ -1,1 +574,578 @@        // Otherwise, no completion is necessary, see the preconditions of `markAbsent()`.\n        (myInfo `eq` NoType)\n        || is(Invisible) && ctx.isTyper\n        || is(ModuleVal, butNot = Package) && moduleClass.isAbsent(canForce)\n    }"
+  },
+  {
+    "id" : "a10474b2-dd74-4923-a132-a49a7eed6d98",
+    "prId" : 13173,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/13173#pullrequestreview-719514282",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "d29a9c56-8f27-4f91-9f4c-97d262b1bf4a",
+        "parentId" : null,
+        "authorId" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "body" : "I believe this is the intent of this line. ",
+        "createdAt" : "2021-07-30T23:22:02Z",
+        "updatedAt" : "2021-07-30T23:22:02Z",
+        "lastEditedBy" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
+    "line" : 5,
+    "diffHunk" : "@@ -1,1 +574,578 @@        // Otherwise, no completion is necessary, see the preconditions of `markAbsent()`.\n        (myInfo `eq` NoType)\n        || is(Invisible) && ctx.isTyper\n        || is(ModuleVal, butNot = Package) && moduleClass.isAbsent(canForce)\n    }"
   }
 ]

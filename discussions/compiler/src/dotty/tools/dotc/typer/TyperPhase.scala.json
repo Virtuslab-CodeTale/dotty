@@ -130,5 +130,137 @@
     "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
     "line" : 79,
     "diffHunk" : "@@ -1,1 +81,85 @@    val unitContexts =\n      for unit <- units yield\n        val newCtx = ctx.fresh.setPhase(this.start).setCompilationUnit(unit)\n        report.inform(s\"typing ${unit.source}\")\n        if (addRootImports)"
+  },
+  {
+    "id" : "97b1475a-fa4f-4375-9f2c-6b90f3a1e707",
+    "prId" : 13173,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/13173#pullrequestreview-720558358",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "338ef596-ceb8-4666-b09f-501238117fb4",
+        "parentId" : null,
+        "authorId" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "body" : "This is a little sketchy, but should silence the error in the community build.",
+        "createdAt" : "2021-08-02T20:15:16Z",
+        "updatedAt" : "2021-08-02T20:15:16Z",
+        "lastEditedBy" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
+    "line" : 117,
+    "diffHunk" : "@@ -1,1 +118,122 @@\n@deprecated(message = \"FrontEnd has been split into TyperPhase and Parser. Refer to one or the other.\")\nobject FrontEnd {\n  // For backwards compatibility: some plugins refer to FrontEnd so that they can schedule themselves after it.\n  val name: String = TyperPhase.name"
+  },
+  {
+    "id" : "00052a0d-4dbf-4f0f-a867-a9aa0d4a9a79",
+    "prId" : 13173,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/13173#pullrequestreview-721456226",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "23a62c95-8ffa-4454-9b6f-f45fd1d94922",
+        "parentId" : null,
+        "authorId" : "5f907c64-1898-4d74-945b-1f630a7406b9",
+        "body" : "🤔 probably not a big deal, but would be nice to lift this into some REPL or REPL/test code.\r\n\r\nI assume it has something to do with how the REPL splits parsing and typing.",
+        "createdAt" : "2021-08-03T09:05:14Z",
+        "updatedAt" : "2021-08-03T09:26:16Z",
+        "lastEditedBy" : "5f907c64-1898-4d74-945b-1f630a7406b9",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "1b20d3f4-08c4-4cf5-b3b4-fc3e9fdc4e5c",
+        "parentId" : "23a62c95-8ffa-4454-9b6f-f45fd1d94922",
+        "authorId" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "body" : "Happy to take suggestions on how to fix this, but it's behind my limited understanding of how the REPL and the compiler interact. ",
+        "createdAt" : "2021-08-03T17:16:57Z",
+        "updatedAt" : "2021-08-03T17:16:57Z",
+        "lastEditedBy" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
+    "line" : 84,
+    "diffHunk" : "@@ -1,1 +86,90 @@          newCtx.withRootImports\n        else\n          newCtx\n\n    remaining = unitContexts"
+  },
+  {
+    "id" : "e23cfa52-b761-4e43-ab0a-940fc157edda",
+    "prId" : 13173,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/13173#pullrequestreview-721629194",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "c45c6edb-c26b-4508-a359-7844d529c6a8",
+        "parentId" : null,
+        "authorId" : "5f907c64-1898-4d74-945b-1f630a7406b9",
+        "body" : "This seems wrong, no?  Then again no checkfile has failed so perhaps I'm wrong.",
+        "createdAt" : "2021-08-03T09:06:58Z",
+        "updatedAt" : "2021-08-03T09:26:16Z",
+        "lastEditedBy" : "5f907c64-1898-4d74-945b-1f630a7406b9",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "43362451-dcff-42a5-a32f-2dd9af940188",
+        "parentId" : "c45c6edb-c26b-4508-a359-7844d529c6a8",
+        "authorId" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "body" : "I lifted that from the original PR. Without it, at least `dotty.tools.dotc.CompilationTests` fail. ",
+        "createdAt" : "2021-08-03T17:16:26Z",
+        "updatedAt" : "2021-08-03T17:16:26Z",
+        "lastEditedBy" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "b788667d-9d66-49d3-b89a-b301b5f45633",
+        "parentId" : "c45c6edb-c26b-4508-a359-7844d529c6a8",
+        "authorId" : "9ffc9890-522c-4d3a-8fe5-fb5cbad2b309",
+        "body" : "Yes, even in case of errors in parsing, we run the typer phase, this is particularly useful for IDEs since it means the presentation compiler is usable even when your code doesn't typecheck.",
+        "createdAt" : "2021-08-03T20:44:08Z",
+        "updatedAt" : "2021-08-03T20:44:08Z",
+        "lastEditedBy" : "9ffc9890-522c-4d3a-8fe5-fb5cbad2b309",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
+    "line" : 67,
+    "diffHunk" : "@@ -1,1 +42,46 @@\n  // Run regardless of parsing errors\n  override def isRunnable(implicit ctx: Context): Boolean = true\n\n  def enterSyms(using Context): Unit = monitor(\"indexing\") {"
+  },
+  {
+    "id" : "13d2d140-6a64-473b-8ef9-81828aa0cfe8",
+    "prId" : 13173,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/13173#pullrequestreview-721456321",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "70c0435f-6108-4b35-9350-ff05d8a73ffe",
+        "parentId" : null,
+        "authorId" : "5f907c64-1898-4d74-945b-1f630a7406b9",
+        "body" : "```suggestion\r\n        report.inform(s\"compiling ${unit.source}\")\r\n        val newCtx = ctx.fresh.setPhase(this.start).setCompilationUnit(unit)\r\n```\r\n\r\nOr perhaps \"typing ${unit.source}\"?",
+        "createdAt" : "2021-08-03T09:21:51Z",
+        "updatedAt" : "2021-08-03T09:26:16Z",
+        "lastEditedBy" : "5f907c64-1898-4d74-945b-1f630a7406b9",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "1f6af0df-452c-4c74-a4a5-752226d4aabc",
+        "parentId" : "70c0435f-6108-4b35-9350-ff05d8a73ffe",
+        "authorId" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "body" : "Done",
+        "createdAt" : "2021-08-03T17:17:03Z",
+        "updatedAt" : "2021-08-03T17:17:03Z",
+        "lastEditedBy" : "d07c2ee4-7ec8-40c8-8344-288874efe6a1",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "bd08f7e92b595f83ad44c250b7b944ab350c9252",
+    "line" : 79,
+    "diffHunk" : "@@ -1,1 +81,85 @@    val unitContexts =\n      for unit <- units yield\n        val newCtx = ctx.fresh.setPhase(this.start).setCompilationUnit(unit)\n        report.inform(s\"typing ${unit.source}\")\n        if (addRootImports)"
   }
 ]

@@ -97,5 +97,38 @@
     "commit" : "49f2d03a6372e8d7af0c90eac831627c077862e8",
     "line" : 5,
     "diffHunk" : "@@ -1,1 +105,109 @@\n  private def signaturesFromDocumentation()(using DocContext): Seq[String] =\n    val output = summon[DocContext].args.output.toPath\n    val signatures = List.newBuilder[String]\n"
+  },
+  {
+    "id" : "8c5ce3d4-a7fb-4408-87ba-eda67296a8fc",
+    "prId" : 13130,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/13130#pullrequestreview-713807896",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "da8d0b97-969c-4d37-8efa-9eb46d6b48b1",
+        "parentId" : null,
+        "authorId" : "4107dafe-4e7b-4e85-8d5b-63e06e0e6318",
+        "body" : "Same question here.",
+        "createdAt" : "2021-07-23T14:47:35Z",
+        "updatedAt" : "2021-07-23T14:47:35Z",
+        "lastEditedBy" : "4107dafe-4e7b-4e85-8d5b-63e06e0e6318",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "c7457a24-4294-474f-a901-d98e423c56af",
+        "parentId" : "da8d0b97-969c-4d37-8efa-9eb46d6b48b1",
+        "authorId" : "6135cab1-288c-42ce-a328-e0469e2b06c8",
+        "body" : "Same answer applies here ;)",
+        "createdAt" : "2021-07-23T14:50:24Z",
+        "updatedAt" : "2021-07-23T14:50:24Z",
+        "lastEditedBy" : "6135cab1-288c-42ce-a328-e0469e2b06c8",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "49f2d03a6372e8d7af0c90eac831627c077862e8",
+    "line" : 5,
+    "diffHunk" : "@@ -1,1 +105,109 @@\n  private def signaturesFromDocumentation()(using DocContext): Seq[String] =\n    val output = summon[DocContext].args.output.toPath\n    val signatures = List.newBuilder[String]\n"
   }
 ]

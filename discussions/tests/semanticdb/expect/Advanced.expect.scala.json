@@ -1,0 +1,35 @@
+[
+  {
+    "id" : "d596271e-3fba-4942-85af-6d050b7a2265",
+    "prId" : 12885,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12885#pullrequestreview-712477531",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "495a8a86-9851-4e53-9a1c-3e2b63b56b8e",
+        "parentId" : null,
+        "authorId" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "body" : "We are missing occurrences for `[T] =>> [U] =>> (U, T)]` but probably not part of this PR",
+        "createdAt" : "2021-07-20T17:41:13Z",
+        "updatedAt" : "2021-07-20T17:44:13Z",
+        "lastEditedBy" : "b0a3e0ce-5278-4dad-8026-49b4b4041725",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "fcbe96fc-11b1-4d49-bb2c-64258f596111",
+        "parentId" : "495a8a86-9851-4e53-9a1c-3e2b63b56b8e",
+        "authorId" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "body" : "This is the same issue with TypeTree stuff: https://github.com/lampepfl/dotty/pull/12885#discussion_r673987228",
+        "createdAt" : "2021-07-22T08:20:59Z",
+        "updatedAt" : "2021-07-22T08:20:59Z",
+        "lastEditedBy" : "afb48bac-8340-43c2-a53e-e420ce6ddd13",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "056f4a416d444f58a9f2e0ae2f4afc19cb56a95e",
+    "line" : 45,
+    "diffHunk" : "@@ -1,1 +46,50 @@\n// Curried Type Application\nclass HKClass/*<-advanced::HKClass#*/[F/*<-advanced::HKClass#[F]*/ <: [T] =>> [U] =>> (U, T)] {\n  def foo/*<-advanced::HKClass#foo().*/[T/*<-advanced::HKClass#foo().[T]*/,U/*<-advanced::HKClass#foo().[U]*/](x/*<-advanced::HKClass#foo().(x)*/: F/*->advanced::HKClass#[F]*/[T/*->advanced::HKClass#foo().[T]*/][U/*->advanced::HKClass#foo().[U]*/]): String/*->scala::Predef.String#*/ = x/*->advanced::HKClass#foo().(x)*/.toString/*->scala::Tuple2#toString().*/()\n}"
+  }
+]

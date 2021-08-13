@@ -174,5 +174,38 @@
     "commit" : "0a77f6bb174a915ee130b46487c851af72417b45",
     "line" : 50,
     "diffHunk" : "@@ -1,1 +188,192 @@        && sym2.owner.is(JavaDefined, butNot = Trait)\n    then false // javac already handles these checks and inserts bridges\n    else if sym1.isType then true\n    else\n      val sd1 = sym1.asSeenFrom(self)"
+  },
+  {
+    "id" : "9b83366f-941c-4504-b069-6a277308fec2",
+    "prId" : 13092,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/13092#pullrequestreview-713632552",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "3cb70002-e543-44ca-ac22-5c888701cf3a",
+        "parentId" : null,
+        "authorId" : "9ffc9890-522c-4d3a-8fe5-fb5cbad2b309",
+        "body" : "I guess this isn't new code, but it's weird that this overload of isOverridingPair simply allows all types to match whereas the other overload will check that the kinds match, could this be harmonized?",
+        "createdAt" : "2021-07-21T11:03:17Z",
+        "updatedAt" : "2021-07-21T11:09:37Z",
+        "lastEditedBy" : "9ffc9890-522c-4d3a-8fe5-fb5cbad2b309",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "571537d9-5835-44ef-a5ad-3ac5782155a8",
+        "parentId" : "3cb70002-e543-44ca-ac22-5c888701cf3a",
+        "authorId" : "d08d2c4a-dc79-4be6-96b0-506d21e90d1d",
+        "body" : "I am not sure. Maybe. But not in this PR. Somebody would have to take the time to experiment and figure this out. It's best to be conservative here since I am sure there are lots of code bases out there that we have not seen yet and that test this logic in interesting ways.\r\n",
+        "createdAt" : "2021-07-23T11:23:59Z",
+        "updatedAt" : "2021-07-23T11:23:59Z",
+        "lastEditedBy" : "d08d2c4a-dc79-4be6-96b0-506d21e90d1d",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "0a77f6bb174a915ee130b46487c851af72417b45",
+    "line" : 50,
+    "diffHunk" : "@@ -1,1 +188,192 @@        && sym2.owner.is(JavaDefined, butNot = Trait)\n    then false // javac already handles these checks and inserts bridges\n    else if sym1.isType then true\n    else\n      val sd1 = sym1.asSeenFrom(self)"
   }
 ]

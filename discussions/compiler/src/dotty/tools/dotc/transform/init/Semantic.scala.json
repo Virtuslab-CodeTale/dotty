@@ -1307,5 +1307,38 @@
     "commit" : "e901a3653f6be1786b387c365ad2dc7c602bf807",
     "line" : 86,
     "diffHunk" : "@@ -1,1 +510,514 @@          Result(Cold, Nil)\n      else if sym.is(Flags.Param) then\n        default()\n      else\n        sym.defTree match {"
+  },
+  {
+    "id" : "4555b27f-bc22-4d1f-974a-6d56fc222647",
+    "prId" : 12867,
+    "prUrl" : "https://github.com/lampepfl/dotty/pull/12867#pullrequestreview-714126610",
+    "prSource" : "GitHub",
+    "comments" : [
+      {
+        "id" : "f3a44859-4e5a-4f59-87e5-f26eb1ffcba8",
+        "parentId" : null,
+        "authorId" : "622090c5-e5e3-45d4-b84a-e18806050675",
+        "body" : "For parameters for normal method calls, we just return `Result(Hot, Nil)` since we expect that those arguments have been promoted in `Call`, right?",
+        "createdAt" : "2021-07-23T20:51:09Z",
+        "updatedAt" : "2021-07-23T20:51:09Z",
+        "lastEditedBy" : "622090c5-e5e3-45d4-b84a-e18806050675",
+        "tags" : [
+        ]
+      },
+      {
+        "id" : "9e4daf97-f2c4-4486-9347-8ecf6f7ceacb",
+        "parentId" : "f3a44859-4e5a-4f59-87e5-f26eb1ffcba8",
+        "authorId" : "bc4c7970-6d84-475b-b408-2ed0f22a7bf3",
+        "body" : "Yes, that's correct.",
+        "createdAt" : "2021-07-23T21:06:18Z",
+        "updatedAt" : "2021-07-23T21:06:19Z",
+        "lastEditedBy" : "bc4c7970-6d84-475b-b408-2ed0f22a7bf3",
+        "tags" : [
+        ]
+      }
+    ],
+    "commit" : "e901a3653f6be1786b387c365ad2dc7c602bf807",
+    "line" : 86,
+    "diffHunk" : "@@ -1,1 +510,514 @@          Result(Cold, Nil)\n      else if sym.is(Flags.Param) then\n        default()\n      else\n        sym.defTree match {"
   }
 ]
